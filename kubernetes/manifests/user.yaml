@@ -1,0 +1,21 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: kafka-user
+  labels:
+    strimzi.io/cluster: streaming-kafka-cluster
+spec:
+  authentication:
+    type: scram-sha-256
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: trading-prices
+        operation:
+          - Create
+          - Describe
+          - Read
+          - Write
+        host: "*"
