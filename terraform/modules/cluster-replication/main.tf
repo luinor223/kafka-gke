@@ -35,7 +35,7 @@ module "kafka_cluster" {
  
   node_pools = [
     {
-      name            = "pool-zookeeper"
+      name            = "pool-system"
       disk_size_gb    = 20
       disk_type       = "pd-standard"
       autoscaling     = true
@@ -64,12 +64,13 @@ module "kafka_cluster" {
     pool-kafka = {
       "app.stateful/component" = "kafka-broker"
     } 
-    pool-zookeeper = {
-      "app.stateful/component" = "zookeeper"
+    pool-system = {
+      "node-type" = "system"
     }
   }
   node_pools_taints = {
     all = []
+    pool-system = []
     pool-kafka = [
       {
         key    = "app.stateful/component"

@@ -21,10 +21,10 @@ module "kafka_cluster" {
     {
       name            = "pool-system"
       disk_size_gb    = 20
-      disk_type       = "pd-standard"    # Cheaper for system pods
+      disk_type       = "pd-standard"
       autoscaling     = true
-      min_count       = 1                # System pods need space
-      max_count       = 2                
+      min_count       = 1
+      max_count       = 2
       max_surge       = 1
       max_unavailable = 0
       machine_type    = "e2-standard-2"
@@ -35,11 +35,11 @@ module "kafka_cluster" {
       disk_size_gb    = 20
       disk_type       = "pd-ssd"
       autoscaling     = true
-      min_count       = 1                # Start with 1 Kafka node  
-      max_count       = 2                
+      min_count       = 1
+      max_count       = 2
       max_surge       = 1
       max_unavailable = 0
-      machine_type    = "e2-standard-2"  # 2 vCPUs each for Kafka
+      machine_type    = "e2-standard-2"
       auto_repair     = true
     }
   ]
@@ -54,12 +54,12 @@ module "kafka_cluster" {
   }
   node_pools_taints = {
     all = []
-    pool-system = []                   # NO TAINTS - system pods can schedule here
+    pool-system = []
     pool-kafka = [
       {
         key    = "app.stateful/component"
         value  = "kafka-broker"
-        effect = "NO_SCHEDULE"         # ONLY Kafka pods can schedule here
+        effect = "NO_SCHEDULE"
       }
     ]
   }

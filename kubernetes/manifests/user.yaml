@@ -6,16 +6,22 @@ metadata:
     strimzi.io/cluster: streaming-kafka-cluster
 spec:
   authentication:
-    type: scram-sha-256
+    type: scram-sha-512
   authorization:
     type: simple
     acls:
       - resource:
           type: topic
           name: trading-prices
-        operation:
+        operations:
           - Create
           - Describe
           - Read
           - Write
+        host: "*"
+      - resource:
+          type: cluster
+          name: kafka-cluster
+        operations:
+          - Describe
         host: "*"
